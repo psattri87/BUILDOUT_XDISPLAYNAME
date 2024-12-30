@@ -15,7 +15,6 @@ function App() {
   const submit = (event) => {
     event.preventDefault();
     setFullName(name.fname + " " + name.lname);
-    setName({ ...name, fname: "", lname: "" });
   };
 
   return (
