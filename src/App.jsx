@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState({
+    fname: "",
+    lname: "",
+  });
+  const [fullName, setFullName] = useState("");
+
+  const handleChange = (e) => {
+    setName({ ...name, [e.target.name]: e.target.value });
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    setFullName(name.fname + " " + name.lname);
+    setName({ ...name, fname: "", lname: "" });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Full Name Display</h1>
+      <form onSubmit={submit}>
+        <div>
+          <label htmlFor="fname">First Name</label>
+          <input
+            type="text"
+            name="fname"
+            required
+            value={name.fname}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="lname">Last Name</label>
+          <input
+            type="text"
+            name="lname"
+            required
+            value={name.lname}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      {fullName !== "" && <p>Full Name: {fullName}</p>}
+    </div>
+  );
 }
 
-export default App
+export default App;
